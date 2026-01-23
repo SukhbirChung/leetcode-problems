@@ -35,6 +35,37 @@ All the words in s are separated by a single space.
  * @param {string} s
  * @return {boolean}
  */
-var wordPattern = function(pattern, s) {
-    
+var wordPattern = function (pattern, s) {
+    // Time Complexity - O(n), Space Complexity - O(n)
+    s = s.split(' ');
+    if (pattern.length !== s.length) return false;
+
+    let mapping = {};
+    for (let i = 0; i < pattern.length; i++) {
+        if (!mapping[pattern[i]]) {
+            mapping[pattern[i]] = s[i];
+        } else {
+            if (mapping[pattern[i]] !== s[i]) return false;
+        }
+    }
+
+    mapping = {};
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] === "constructor") {
+        }
+        if (!mapping[s[i]]) {
+            mapping[s[i]] = pattern[i];
+        } else {
+            if (mapping[s[i]] !== pattern[i]) {
+                return false
+            }
+        }
+    }
+
+    return true;
 };
+
+//console.log(wordPattern("abba", "dog cat cat dog")); // true
+//console.log(wordPattern("abba", "dog cat cat fish")); // false
+//console.log(wordPattern("aaaa", "dog cat cat dog")); // false
+console.log(wordPattern("abba", "dog constructor constructor dog")); // true
