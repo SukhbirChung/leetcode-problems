@@ -25,5 +25,17 @@ Follow up: Suppose there are lots of incoming s, say s1, s2, ..., sk where k >= 
  * @return {boolean}
  */
 var isSubsequence = function(s, t) {
-    
+    // Time Complexity - O(n), Space Complexity - O(1)
+    s = s.split('');
+    t = t.split('');
+    let poppedLetterFromS = s.pop();
+    let poppedLetterFromT = t.pop();
+
+    while (s.length && t.length) {        
+        while (poppedLetterFromS !== poppedLetterFromT) {
+            poppedLetterFromT = t.pop();
+        }
+        poppedLetterFromS = s.pop();
+        poppedLetterFromT = t.pop();
+    }
 };

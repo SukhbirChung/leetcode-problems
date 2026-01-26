@@ -28,5 +28,43 @@ The number of nodes in the tree is in the range [1, 100].
  * @return {string[]}
  */
 var binaryTreePaths = function(root) {
-    
+    const result = [];
+
+    function makePaths(str, n) {
+        const leftIdx = 2*n + 1;
+        const rightIdx = 2*n + 2;
+
+        if (!(root[leftIdx] || root[rightIdx])) {
+            result.push(str);
+            return;
+        } 
+        if (root[leftIdx]) {
+            const left = `${str}->${root[leftIdx]}`;
+            makePaths(left, leftIdx);
+        } else {
+            result.push(str);
+        }
+        if (root[rightIdx]) {
+            const right = `${str}->${root[rightIdx]}`;
+            makePaths(right, rightIdx);
+        } else {
+            result.push(str);
+        }
+    }
+
+    makePaths(root[0].toString(), 0);
+    return result;
 };
+
+console.log(binaryTreePaths([100, 19, 36, 17, 12, 25, 5, 9, 15, 6, 11, 13, 8, 1, 4]));
+/*[
+  '100->19->17->9',
+  '100->19->17->15',
+  '100->19->12->6',
+  '100->19->12->11',
+  '100->36->25->13',
+  '100->36->25->8',
+  '100->36->5->1',
+  '100->36->5->4'
+]*/
+console.log(binaryTreePaths([100, 19, 36, 17, 12, 25, null, 9, 15, 6, 11, 13, 8, 1, 4]));

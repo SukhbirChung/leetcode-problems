@@ -25,5 +25,31 @@ ransomNote and magazine consist of lowercase English letters.
  * @return {boolean}
  */
 var canConstruct = function(ransomNote, magazine) {
-    
+    // Time Complexity - O(n), Space Complexity - O(1)
+    const ransomCount = {};
+    const magazineCount = {};
+    for (let ch of ransomNote) {
+        if (ransomCount[ch]) {
+            ransomCount[ch] += 1;
+        } else {
+            ransomCount[ch] = 1;
+        }
+    }
+    for (let ch of magazine) {
+        if (magazineCount[ch]) {
+            magazineCount[ch] += 1;
+        } else {
+            magazineCount[ch] = 1;
+        }
+    }
+    for (let ch of Object.keys(ransomCount)) {
+        if (!magazineCount[ch]) return false;
+        if (ransomCount[ch] > magazineCount[ch]) return false;
+    }
+    return true;
 };
+
+console.log(canConstruct("a", "b")); // false
+console.log(canConstruct("aa", "ab")); // false
+console.log(canConstruct("aa", "aab")); // true
+console.log(canConstruct("thisisaransomnote", "thisisamagazine")); // false

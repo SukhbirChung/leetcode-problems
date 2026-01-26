@@ -24,5 +24,31 @@ s and t consist of lowercase English letters.
  * @return {character}
  */
 var findTheDifference = function(s, t) {
-    
+    // Time Complexity - O(n), Space Complexity - O(1)
+    const letterCountInS = {};
+    const letterCountInT = {};
+
+    for (let ch of s) {
+        if (letterCountInS[ch]) {
+            letterCountInS[ch] += 1;
+        } else {
+            letterCountInS[ch] = 1;
+        }
+    }
+
+    for (let ch of t) {
+        if (letterCountInT[ch]) {
+            letterCountInT[ch] += 1;
+        } else {
+            letterCountInT[ch] = 1;
+        }
+    }
+
+    for (let ch of Object.keys(letterCountInT)) {
+        if (!letterCountInS[ch]) return ch;
+        if (letterCountInT[ch] > letterCountInS[ch]) return ch;
+    }
 };
+
+console.log(findTheDifference("abcd", "abcde")); // "e"
+console.log(findTheDifference("", "y")); // "y"
